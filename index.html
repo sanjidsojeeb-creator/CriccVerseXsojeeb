@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATCHES LINKS Player</title>
+    <style>
+        /*
+         * CSS Styles (স্টাইল)
+         */
+        body {
+            background-color: #0b1a38; /* ডিপ ব্লু ব্যাকগ্রাউন্ড */
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* হেডারের স্টাইল */
+        .header {
+            font-size: 16px;
+            letter-spacing: 5px;
+            font-weight: bold;
+            padding: 15px 0;
+            width: 90%;
+            margin-bottom: 20px;
+            border: 1px solid #1e3a67; /* হালকা ফ্রেম */
+            box-sizing: border-box;
+            background-color: #0e2752;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+
+        /* প্রধান ব্লক (ভিডিও ও বাটন) */
+        .main-block {
+            background-color: #0e2752; /* ব্লক ব্যাকগ্রাউন্ড */
+            width: 95%;
+            max-width: 600px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ভিডিও প্লেয়ার সেকশন */
+        .video-player-area {
+            position: relative;
+            background-color: black;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .video-embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #101010;
+        }
+
+        .chrome-logo-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 80%;
+            margin-bottom: 15px;
+        }
+        
+        /* ক্রোম লোগোর জন্য কাল্পনিক আইকন */
+        .chrome-icon {
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle at center, white 15%, transparent 15%) #4285F4;
+            border-radius: 50%;
+            border: 4px solid #EA4335;
+            box-shadow: 0 0 0 4px #34A853, 0 0 0 8px #FBBC05;
+        }
+
+        .video-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .video-text.hindi {
+            font-size: 14px;
+            font-weight: normal;
+            color: #ccc;
+        }
+
+        /* লোডিং বার */
+        .loading-bar-container {
+            width: 80%;
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .loading-bar {
+            width: 70%; /* Loading Simulation */
+            height: 100%;
+            background: linear-gradient(90deg, #4285F4, #34A853);
+            animation: pulse 1.5s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .handle {
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 10px;
+        }
+
+        /* সাধারণ বাটনের স্টাইল */
+        .btn-group {
+            margin-top: 15px;
+            padding: 5px 0;
+        }
+
+        .custom-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        
+        /* টেলিগ্রাম বাটনের স্টাইল */
+        .telegram-btn {
+            background-color: #0088cc; /* টেলিগ্রাম ব্লু */
+        }
+        .telegram-btn:hover {
+            background-color: #006bb3;
+        }
+
+        /* কপি ও শেয়ার বাটনের স্টাইল */
+        .share-copy-btn {
+            background-color: #0d47a1; /* ডিপ ব্লু */
+        }
+        .share-copy-btn:hover {
+            background-color: #093479;
+        }
+        
+        /* ফুটারে জয়েন ব্যানার */
+        .telegram-banner {
+            background-color: #000D2D; /* ডার্ক ব্লু */
+            width: 100%;
+            padding: 20px 10px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        /* আইকনের জন্য প্লেসহোল্ডার */
+        .icon {
+            display: inline-block;
+            margin-right: 5px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">M A T C H E S L I N K S</div>
+
+    <div class="main-block">
+        <div class="video-player-area">
+            <div class="video-embed">
+                <div class="chrome-logo-container">
+                    <div class="chrome-icon"></div>
+                    <div class="chrome-icon"></div>
+                </div>
+                <div class="video-text">Open Link In Chrome Only</div>
+                <div class="video-text hindi">লিংক কো কেবল গুগল ক্রোমে খুললে (লিংকটি কেবল গুগল ক্রোমে খুলুন)</div>
+                
+                <div class="loading-bar-container">
+                    <div class="loading-bar"></div>
+                </div>
+
+                <div class="handle">@matcheslinks</div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <p style="font-weight: bold; margin: 5px 0; color: #ff6347;">📌 Follow us for Updates!</p>
+            <a href="আপনার_টেলিগ্রাম_লিংক" class="custom-button telegram-btn">
+                <span class="icon">✈️</span> Click Here To Join Telegram For More Links
+            </a>
+        </div>
+
+        <div class="btn-group">
+            <p style="font-weight: bold; margin: 5px 0;">Copy Link & Open in Chrome Browser Only</p>
+            <a href="আপনার_শেয়ার_লিংক" class="custom-button share-copy-btn">
+                Click Here To Share This Page Link ❤️
+            </a>
+            <button onclick="copyToClipboard('আপনার_কপি_করার_লিংক')" class="custom-button share-copy-btn" style="background-color: #1e3a67;">
+                Copy Link
+            </button>
+        </div>
+    </div>
+
+    <div class="telegram-banner">
+        <span class="icon" style="font-size: 24px;">✈️</span> Join @Matches Links
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('matcheslinks-eaa.pages.dev says\n\nLink copied successfully! Join Our Telegram Channel @MATCHES LINKS');
+            }, function(err) {
+                alert('কপি করা সম্ভব হয়নি: ' + err);
+            });
+        }
+    </script>
+
+</body>
+</html>
